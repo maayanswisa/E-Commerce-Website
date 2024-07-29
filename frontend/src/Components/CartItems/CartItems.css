@@ -1,0 +1,226 @@
+/* CartItems.css */
+
+.cartitems {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cartitems-format-main {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+    font-weight: bold;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .cartitems-format-main p {
+    margin: 0;
+  }
+  
+  .cartitems-format {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .cartitem-product-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+  
+  .cartitems-quantity {
+    border: 2px solid #ebebeb;
+    width: 64px;
+    height: 50px;
+    background: #4a40d0a6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .cartitems-quantity:hover {
+    background-color: #8581c780;
+  }
+  
+  .remove-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .remove-icon:hover {
+    opacity: 0.8;
+  }
+  
+  hr {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 10px 0;
+  }
+  
+  .cartitems-format p {
+    margin: 0;
+  }
+  
+  .cartitems-down {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .cartitems-total {
+    width: 45%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    padding-right: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cartitems-total h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .cartitems-total-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 18px;
+    
+  }
+  
+  .cartitems-total-item p,
+  .cartitems-total-item h3 {
+    margin: 0;
+  }
+  
+  .cartitems-total button {
+    width: 50%;
+    background-color: #4a40d0;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .cartitems-total button:hover {
+    background-color: #3732a6;
+  }
+  
+  .cartitems-promocode {
+    width: 45%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cartitems-promocode p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .cartitems-promocode input {
+    width: calc(100% - 100px);
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ebebeb;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+  }
+  
+  .cartitems-promocode button {
+    width: 70px;
+    background-color: #5149b983;
+    color: #000000;
+    padding: 5px;
+    border: #333;
+    border-radius:  5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .cartitems-promocode button:hover {
+    background-color: #3732a6;
+  }
+  
+  @media (max-width:1280px) {
+    .cartitems{
+      margin: 60px 30px;
+    }
+    .cartitems-format-main{
+      grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+      gap: 20px;
+      padding: 10px 0px;
+      font-size: 15px;
+    }
+    .cartitem-product-icon{
+      height: 50px;
+    }
+    .remove-icon{
+      margin: auto;
+    }
+    .cartitems-quantity{
+      width: 40px;
+      height: 30px;
+    }
+    .cartitems-format p{
+      margin-left: 5px;
+    }
+    .cartitems-down{
+      margin: 80px 0px;
+      flex-direction:column ;
+      gap: 80px;
+    }
+    .cartitems-total{
+      margin: 0px;
+    }
+    .cartitems-total button{
+        max-width: 200px;
+        height: 45px;
+        font-size: 13px;
+    }
+
+    .cartitems-promocode{
+      width: auto;
+      max-width: 500px;
+    }
+
+    .cartitems-promocode input{
+      width: 100%;
+    }
+
+    .cartitems-promocode button{
+      width: 120px;
+
+    }
+
+
+  }
+
+  @media (max-width:500px) {
+    .cartitems-format-main{
+      display: none;
+      grid-template-columns: 0.5fr 3fr 0.5fr;
+      gap: 10px;
+    }
+    .cartitems-format p{
+      margin-left: 5px;
+    }
+    .cartitems-format{
+      display: grid;
+    }
+  }
