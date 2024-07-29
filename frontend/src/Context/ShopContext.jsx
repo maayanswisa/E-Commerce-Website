@@ -15,6 +15,10 @@ const getDefaultCart = () => {
   }
   return cart;
 };
+/* 
+פונקציה זו יוצרת אובייקט עם אינדקסים ערכים של 0. 
+זה משמש כברירת מחדל לסל הקניות, כך שכל פריט מתחיל עם כמות של 0.
+*/
 
 const ShopContextProvider = (props) => {
   const [all_product, setAll_product] = useState([]);
@@ -39,6 +43,15 @@ const ShopContextProvider = (props) => {
         .then((data) => setCartItems(data));
     }
   }, []);
+  /*
+רכיב שמספק את הקונטקסט לכל רכיב בתוכו.
+ הוא מנהל את מצב הסל ומוצרים בעזרת 
+ useState
+  ומבצע בקשות 
+  API 
+  כדי לטעון את הנתונים הדרושים עם 
+  useEffect.
+*/
 
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
@@ -74,6 +87,12 @@ const ShopContextProvider = (props) => {
         .then((data) => console.log(data));
     }
   };
+  /*
+   פונקציות להוספת או הסרת פריטים מהסל.
+    הן גם שולחות בקשות 
+    API 
+    כדי לעדכן את הסל בצד השרת.
+   */
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -86,7 +105,7 @@ const ShopContextProvider = (props) => {
       }
     }
     return totalAmount;
-  };
+  }; //מחשבת את הסכום הכולל של כל הפריטים בסל
 
   const getTotalCartItems = () => {
     let totalItem = 0;
@@ -96,7 +115,7 @@ const ShopContextProvider = (props) => {
       }
     }
     return totalItem;
-  };
+  }; //מחשבת את מספר הפריטים הכולל בסל
 
   const contextValue = {
     getTotalCartItems,
@@ -105,7 +124,7 @@ const ShopContextProvider = (props) => {
     cartItems,
     addToCart,
     removeFromCart,
-  };
+  }; // אובייקט המכיל את כל הפונקציות והערכים שנרצה לספק לרכיבים בתוכה
 
   return (
     <ShopContext.Provider value={contextValue}>
@@ -113,6 +132,12 @@ const ShopContextProvider = (props) => {
     </ShopContext.Provider>
   );
 };
+/*
+מספק את הערכים שנכתבו ב-
+contextValue 
+לכל הרכיבים שבתוך 
+ShopContextProvider.
+ */
 
 export default ShopContextProvider;
 
