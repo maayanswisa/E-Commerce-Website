@@ -235,7 +235,7 @@ app.post("/removefromcart", fetchUser, async (req, res) => {
     { cartData: userData.cartData }
   );
   res.json({ success: true, message: "Added to cart" });
-});
+}); //
 
 //creating endpoint to get cart data
 app.post("/getcart", fetchUser, async (req, res) => {
