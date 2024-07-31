@@ -11,3 +11,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+/*
+Renders the App component inside React.StrictMode 
+(which helps identify potential problems in an application).
+
+Wraps the App component in BrowserRouter to enable routing capabilities.
+
+*/

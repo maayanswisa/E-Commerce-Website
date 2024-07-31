@@ -3,7 +3,8 @@ import { useEffect } from "react";
 
 export const ShopContext = createContext(null);
 /*
-מספק דרך להעביר נתונים (כמו ערכים והגדרות) דרך עץ הרכיבים Context
+Context
+מספק דרך להעביר נתונים (כמו ערכים והגדרות) דרך עץ הרכיבים
 מבלי הצורך להעביר פרופס באופן ידני דרך כל רמה של העץ
 שימושי במיוחד כאשר יש לך נתונים שהם "גלובליים" לאפליקציה שלך
 */
@@ -21,14 +22,15 @@ const getDefaultCart = () => {
 */
 
 const ShopContextProvider = (props) => {
-  const [all_product, setAll_product] = useState([]);
-  const [cartItems, setCartItems] = useState(getDefaultCart());
+  const [all_product, setAll_product] = useState([]); // State to store all products
+  const [cartItems, setCartItems] = useState(getDefaultCart()); // State to store cart items
 
   useEffect(() => {
-    fetch("http://localhost:4000/allproducts")
+    fetch("http://localhost:4000/allproducts") // Fetch all products from the server
       .then((response) => response.json())
       .then((data) => setAll_product(data));
 
+    // Fetch cart items if there is an auth-token in localStorage
     if (localStorage.getItem("auth-token")) {
       fetch("http://localhost:4000/getcart", {
         method: "POST",
@@ -54,6 +56,7 @@ const ShopContextProvider = (props) => {
 */
 
   const addToCart = (itemId) => {
+    // Add an item to the cart and update the server
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     if (localStorage.getItem("auth-token")) {
       fetch("http://localhost:4000/addtocart", {
@@ -72,6 +75,7 @@ const ShopContextProvider = (props) => {
   };
 
   const removeFromCart = (itemId) => {
+    // Remove an item from the cart and update the server
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     if (localStorage.getItem("auth-token")) {
       fetch("http://localhost:4000/removefromcart", {
@@ -98,10 +102,15 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
+        // Find the product by ID
         let itemInfo = all_product.find(
           (product) => product.id === Number(item)
         );
-        totalAmount += itemInfo.new_price * cartItems[item];
+
+        // Check if itemInfo exists and has a new_price property
+        if (itemInfo && itemInfo.new_price) {
+          totalAmount += itemInfo.new_price * cartItems[item];
+        }
       }
     }
     return totalAmount;

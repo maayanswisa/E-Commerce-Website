@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 import add_product_icon from "../../assets/Admin_Assets/Product_Cart.svg";
 import list_product_icon from "../../assets/Admin_Assets/Product_list_icon.svg";
 
+/*
+This component creates a sidebar with 
+navigation links for adding a product and viewing the product list,
+ each with an associated icon and text.
+*/
+
 const Sidebar = () => {
   return (
     <div className="sidebar">

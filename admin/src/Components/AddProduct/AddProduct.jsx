@@ -3,31 +3,36 @@ import "./AddProduct.css";
 import upload_area from "../../assets/Admin_Assets/upload_area.svg";
 
 const AddProduct = () => {
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(false); // State to store the selected image
+
   const [productDetails, setProductDetails] = useState({
+    // State to store product details (name, image, category, old price, new price)
     name: "",
     image: "",
     category: "women",
     new_price: "",
     old_price: "",
   });
+
   const imageHandler = (e) => {
     setImage(e.target.files[0]);
-  };
+  }; // Function to handle image selection
 
   const changeHandler = (e) => {
     setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
-  };
+  }; // Function to handle changes in product details input fields
 
   const Add_Product = async () => {
     console.log(productDetails);
     let responseData;
     let product = productDetails;
 
-    let formData = new FormData();
+    let formData = new FormData(); // Create a FormData object for image upload
+
     formData.append("product", image);
 
     await fetch("http://localhost:4000/upload", {
+      // Send a request to the server to upload the image
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -40,6 +45,7 @@ const AddProduct = () => {
       });
 
     if (responseData.success) {
+      // If the image upload is successful, update product details and send them to the server
       product.image = responseData.image_url;
       console.log(product);
       await fetch("http://localhost:4000/addproduct", {

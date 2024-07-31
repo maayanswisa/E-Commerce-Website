@@ -9,6 +9,9 @@ const RelatedProjects = () => {
       <hr />
       <div className="relatedprojects-item">
         {data_product.map((item, i) => {
+          {
+            /* Mapping through the data_product array to render Item components */
+          }
           return (
             <Item
               key={i}

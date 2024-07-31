@@ -21,9 +21,9 @@
   
   .new-collections hr {
     border-radius: 10px;
-    height: 6px;
+    height: 1px;
     background: #252525;
-    width: 150px;
+    width: 900px;
   }
   
   .collections {

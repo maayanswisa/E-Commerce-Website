@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CSS/LoginSignup.css";
-import { useState } from "react";
+
 const LoginSignup = () => {
+  // State to manage the form mode: "Login" or "Sign Up"
   const [state, setState] = useState("Login");
 
+  // State to manage form data: username, email, and password
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     email: "",
   });
 
+  // Handler function to update form data based on input changes
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Function to handle login process
   const login = async () => {
     console.log("login Func ", formData);
     let responseData;
@@ -36,6 +40,7 @@ const LoginSignup = () => {
     }
   };
 
+  // Function to handle signup process
   const signup = async () => {
     console.log("signup Func ", formData);
     let responseData;
@@ -124,10 +129,11 @@ const LoginSignup = () => {
 
         <div className="loginsignup-agree">
           <input type="checkbox" name="" id="" />
-          <p>By Continuing, i agree to the terms of use & privacy policy. </p>
+          <p>By continuing, I agree to the terms of use & privacy policy.</p>
         </div>
       </div>
     </div>
   );
 };
+
 export default LoginSignup;

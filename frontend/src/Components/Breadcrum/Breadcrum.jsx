@@ -3,6 +3,8 @@ import "./Breadcrum.css";
 import arrow_icon from "../Assets/Frontend_Assets/breadcrum_arrow.png";
 
 const Breadcrum = (props) => {
+  //מציין את המיקום הנוכחי באתר בצורה היררכית
+  //"HOME" -> "SHOP" ->
   const { product } = props;
 
   if (!product) {

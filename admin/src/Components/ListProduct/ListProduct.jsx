@@ -3,19 +3,22 @@ import "./ListProduct.css";
 import cross_icon from "../../assets/Admin_Assets/cross_icon.png";
 
 const ListProduct = () => {
+  // State to store all products:
   const [allproducts, setAllproducts] = useState([]);
 
+  // Function to fetch all products from the server:
   const fetchInfo = async () => {
     await fetch("http://localhost:4000/allproducts")
       .then((res) => res.json())
       .then((data) => {
-        setAllproducts(data);
+        setAllproducts(data); // Update state with the fetched product data
       });
   };
   useEffect(() => {
     fetchInfo();
   }, []);
 
+  // Function to remove a product by its ID:
   const removeProduct = async (id) => {
     await fetch("http://localhost:4000/removeproduct", {
       method: "POST",
@@ -25,7 +28,7 @@ const ListProduct = () => {
       },
       body: JSON.stringify({ id: id }),
     });
-    await fetchInfo();
+    await fetchInfo(); // Refresh the product list after removal
   };
 
   return (
@@ -60,7 +63,7 @@ const ListProduct = () => {
                 <p>{product.category}</p>
                 <img
                   onClick={() => {
-                    removeProduct(product.id);
+                    removeProduct(product.id); // Remove the product when the icon is clicked
                   }}
                   className="listproduct-remove-icon"
                   src={cross_icon}

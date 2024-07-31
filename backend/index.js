@@ -22,8 +22,9 @@ app.get("/", (req, res) => {
 
 // Image Storage Engine
 const storage = multer.diskStorage({
-  destination: "./upload/images",
+  destination: "./upload/images", // Directory where uploaded files will be stored
   filename: (req, file, cb) => {
+    // Create a unique filename with the original file extension
     return cb(
       null,
       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
@@ -34,9 +35,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Creating Upload Endpoint for images
-app.use("/images", express.static("upload/images"));
+app.use("/images", express.static("upload/images")); // Serve static files from the 'upload/images' directory
 
 app.post("/upload", upload.single("product"), (req, res) => {
+  // Handle file upload and respond with the file URL
   res.json({
     success: 1,
     image_url: `http://localhost:${port}/images/${req.file.filename}`,
@@ -79,15 +81,16 @@ const Product = mongoose.model("Product", {
   },
 });
 
+// Add a new product to the database:
 app.post("/addproduct", async (req, res) => {
-  let products = await Product.find({});
+  let products = await Product.find({}); // Fetch all products
   let id;
   if (products.length > 0) {
     let last_product_array = products.slice(-1);
     let last_product = last_product_array[0];
     id = last_product.id + 1;
   } else {
-    id = 1;
+    id = 1; // Start with ID 1 if no products exist
   }
   const product = new Product({
     id: id,
@@ -98,7 +101,7 @@ app.post("/addproduct", async (req, res) => {
     old_price: req.body.old_price,
   });
   console.log(product);
-  await product.save();
+  await product.save(); // Save the product to the database
   console.log("Saved");
   res.json({
     success: true,
@@ -106,7 +109,7 @@ app.post("/addproduct", async (req, res) => {
   });
 });
 
-//creating API for deleting product
+//creating API for deleting product by ID
 app.post("/removeproduct", async (req, res) => {
   await Product.findOneAndDelete({ id: req.body.id });
   console.log("Removed");
@@ -134,6 +137,7 @@ const Users = mongoose.model("Users", {
 
 //Creating endpoint for registering the user
 app.post("/signup", async (req, res) => {
+  // Register a new user
   let check = await Users.findOne({ email: req.body.email });
   if (check) {
     return res
@@ -142,7 +146,7 @@ app.post("/signup", async (req, res) => {
   }
   let cart = {};
   for (let i = 0; i < 300; i++) {
-    cart[i] = 0;
+    cart[i] = 0; // Initialize cart data
   }
   const user = new Users({
     name: req.body.username,
@@ -151,13 +155,13 @@ app.post("/signup", async (req, res) => {
     cartData: cart,
   });
 
-  await user.save();
+  await user.save(); // Save the new user to the database
 
   const data = {
     user: { id: user.id },
   };
 
-  const token = jwt.sign(data, "secret_ecom");
+  const token = jwt.sign(data, "secret_ecom"); // Create a JWT token for the user
   res.json({ success: true, token });
 });
 
@@ -184,6 +188,7 @@ app.post("/login", async (req, res) => {
 
 //creating endpoint for new collection data
 app.get("/newcollections", async (req, res) => {
+  // Fetch and return the most recent 8 products
   let products = await Product.find({});
   let newcollection = products.slice(1).slice(-8); // recent 8
   console.log("NewCollection");
@@ -192,13 +197,14 @@ app.get("/newcollections", async (req, res) => {
 
 //creating endpoint for popular in women section
 app.get("/popularinwomen", async (req, res) => {
+  // Fetch and return the top 4 popular products in the "women" category
   let products = await Product.find({ category: "women" });
   let popular_in_women = products.slice(0, 4);
   console.log("Popular in women fetched");
   res.send(popular_in_women);
 });
 
-//creating middelware to fetch user
+// Middleware to fetch user based on JWT token
 const fetchUser = async (req, res, next) => {
   const token = req.header("auth-token");
   if (!token) {
@@ -207,7 +213,7 @@ const fetchUser = async (req, res, next) => {
     try {
       const data = jwt.verify(token, "secret_ecom");
       req.user = data.user;
-      next();
+      next(); // Proceed to the next middleware or route handler
     } catch (error) {
       res.status(401).send({ errors: "Please authenticate using valid token" });
     }
@@ -216,6 +222,7 @@ const fetchUser = async (req, res, next) => {
 
 //creating endpoint for adding products in cartdata
 app.post("/addtocart", fetchUser, async (req, res) => {
+  // Increment the quantity of an item in the user's cart
   let userData = await Users.findOne({ _id: req.user.id });
   userData.cartData[req.body.itemId] += 1;
   await Users.findOneAndUpdate(
@@ -227,6 +234,7 @@ app.post("/addtocart", fetchUser, async (req, res) => {
 
 //creating endpoint to remove from cart data
 app.post("/removefromcart", fetchUser, async (req, res) => {
+  // Decrement the quantity of an item in the user's cart
   let userData = await Users.findOne({ _id: req.user.id });
   if (userData.cartData[req.body.itemId] > 0)
     userData.cartData[req.body.itemId] -= 1;
@@ -239,6 +247,7 @@ app.post("/removefromcart", fetchUser, async (req, res) => {
 
 //creating endpoint to get cart data
 app.post("/getcart", fetchUser, async (req, res) => {
+  // Retrieve the user's cart data
   console.log("Get Cart");
   let userData = await Users.findOne({ _id: req.user.id });
   res.json(userData.cartData);

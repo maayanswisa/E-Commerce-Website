@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 export const Item = (props) => {
   return (
     <div className="item">
+      {/* Link to the product details page with dynamic routing */}
       <Link to={`/product/${props.id}`}>
+        {/* Image of the item with an onClick event to scroll to the top of the page */}
         <img onClick={window.scrollTo(0, 0)} src={props.image} alt="" />
       </Link>
 

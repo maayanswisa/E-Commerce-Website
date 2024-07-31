@@ -15,9 +15,9 @@
 
 .popular hr {
   border-radius: 10px;
-  height: 6px;
+  height: 1px;
   background: #252525;
-  width: 200px;
+  width: 900px;
 }
 
 .popular-item {

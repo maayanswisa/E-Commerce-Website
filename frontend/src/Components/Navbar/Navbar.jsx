@@ -7,13 +7,19 @@ import { ShopContext } from "../../Context/ShopContext";
 import nav_dropdown from "../Assets/Frontend_Assets/nav_dropdown.png";
 
 export const Navbar = () => {
+  // State to manage the currently active menu item
   const [menu, setMenu] = useState("shop");
+
+  // Context to get the total number of items in the cart
   const { getTotalCartItems } = useContext(ShopContext);
+
+  // Ref to access the dropdown menu element
   const menuRef = useRef();
 
+  // Function to toggle the visibility of the dropdown menu
   const dropdown_toggle = (e) => {
-    menuRef.current.classList.toggle("nav-menu-visible");
-    e.target.classList.toggle("open");
+    menuRef.current.classList.toggle("nav-menu-visible"); // Toggle visibility of the menu
+    e.target.classList.toggle("open"); // Toggle the 'open' class on the dropdown icon
   };
   /*  
 הפונקציה נועדה לטפל בלחיצה על כפתור שמפעיל תפריט נפתח
@@ -29,7 +35,7 @@ export const Navbar = () => {
     <div className="navbar">
       <div className="nav-logo">
         <img src={logo} alt="" />
-        <p>SHOPPER</p>
+        <p>Shopping</p>
       </div>
       <img
         className="nav-dropdown"
