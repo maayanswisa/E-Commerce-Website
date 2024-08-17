@@ -1,5 +1,7 @@
 .hero {
   display: flex;
+  align-items: center; /* מרכז את התוכן אנכית */
+  justify-content: center; /* מרכז את התוכן אופקית */
   height: 80vh;
   background: linear-gradient(180deg, #1706ff87, #ffffff 80%);
 }
@@ -8,10 +10,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* מרכז את התוכן אנכית */
+  align-items: center; /* מרכז את התוכן אופקית */
   gap: 20px;
-  padding-left: 180px;
+  padding-left: 0px; /* הסרת רווח מצד שמאל */
   line-height: 1;
+  text-align: center; /* ממרכז את הטקסט */
 }
 
 .hero-left h2 {
@@ -30,10 +34,12 @@
   gap: 20px;
 }
 
-.hand-hand-icon p {
-  margin-right: 10px;
-  font-size: 1.2rem;
-  color: #555;
+.hero-hand-icon {
+  display: flex;
+  justify-content: center; /* מרכז את התמונה באמצע */
+  align-items: center;
+  gap: 20px;
+  width: 100%; /* מבטיח שהתמונה תתיישר במרכז המסך */
 }
 
 .hero-hand-icon img {
@@ -72,17 +78,7 @@
   height: 20px;
 }
 
-.hero-right {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.hero-right img {
-  max-width: 60%;
-  height: auto;
-}
 
 /* התאמות רספונסיביות */
 @media (max-width: 1280px) {
